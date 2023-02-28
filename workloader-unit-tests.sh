@@ -15,7 +15,7 @@ cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
 cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
 
 #workload delete
-./linux-v*/workloader delete $(cat workloader-wkld-export-*.csv | grep wkld_import.local | cut -d ',' -f 16) --update-pce --no-prompt;
+./linux-v*/workloader delete $(cat workloader-wkld-export-*.csv | grep wkld_import.local | cut -d ',' -f 10) --update-pce --no-prompt;
 cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
 
 #ven export
