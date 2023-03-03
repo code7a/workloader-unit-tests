@@ -1,3 +1,6 @@
+#remove previous bin
+rm -rf ./linux-v*
+
 #wget latest workloader release
 wget $(curl -s https://api.github.com/repos/brian1917/workloader/releases/latest | jq -r '.assets[] | select(.name | startswith("linux")) | .browser_download_url');
 
