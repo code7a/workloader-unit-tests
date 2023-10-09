@@ -104,4 +104,14 @@ cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
 ./linux_amd64-v*/workloader delete $(cat workloader-label-export-*.csv | grep app_4 | cut -d ',' -f 1) --update-pce --no-prompt;
 cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
 
+#clean up unused app labels
+rm -f workloader-label-export-*.csv
+./linux_amd64-v*/workloader label-export;
+#grep labels, type app, no used
+label_hrefs=($(cat workloader-label-export-*.csv | grep ',app,' | grep -v true | cut -d ',' -f 1))
+for label_href in "${label_hrefs[@]}"; do
+    ./linux_amd64-v*/workloader delete $label_href --update-pce --no-prompt;
+done
+cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
+
 exit 0;
