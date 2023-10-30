@@ -1,6 +1,3 @@
-#remove previous bin
-rm -rf ./linux_amd64-v*
-
 #wget latest workloader release
 wget $(curl -s https://api.github.com/repos/brian1917/workloader/releases/latest | jq -r '.assets[] | select(.name | startswith("linux_amd64")) | .browser_download_url');
 
@@ -113,5 +110,8 @@ for label_href in "${label_hrefs[@]}"; do
     ./linux_amd64-v*/workloader delete $label_href --update-pce --no-prompt;
 done
 cat workloader.log | grep ERROR | grep -v "http status code of 500" && exit 1;
+
+#remove workloader bins
+rm -rf ./linux_amd64-v*
 
 exit 0;
